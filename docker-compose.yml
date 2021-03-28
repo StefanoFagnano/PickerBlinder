@@ -1,0 +1,15 @@
+version: "3.1"
+
+services:
+  app:
+    build: ./app
+    restart: always
+    container_name: AplColluding_api
+    ports:
+      - 5000:5000
+  client:
+    image: nginx:alpine
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/usr/share/nginx/html
