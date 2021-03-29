@@ -10,6 +10,6 @@ services:
   client:
     image: nginx:alpine
     ports:
-      - 8080:80
+      - 8081:80
     volumes:
       - ./src:/usr/share/nginx/html
