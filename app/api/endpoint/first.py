@@ -11,3 +11,11 @@ class ciaoo(Resource):
 
     def get(self):
         return 'ciaoo', 200
+
+@ns.route('/upload')
+class uploadAPK(Resource):
+
+    def post(self):
+        file = request.files['apk']
+        injection_type = request.form.get("injecotions")
+        return 'ok', 200
