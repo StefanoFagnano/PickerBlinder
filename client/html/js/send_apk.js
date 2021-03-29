@@ -1,10 +1,9 @@
 $('#first-attack').submit(function (e){
     e.preventDefault();
     const $form = $(this);
-    url = 'http://localhost/api/first/upload';
+    const url = 'http://localhost:5000/api/first/upload';
 
-
-    var posting = $.post(url, {
+    let posting = $.post(url, {
         apk: $('#apk_upload').val(),
         injecotions: $('#injecotions').val()
     });
@@ -15,6 +14,4 @@ $('#first-attack').submit(function (e){
     posting.fail(function() {
         $('#result').text('failed');
     });
-
-
 })

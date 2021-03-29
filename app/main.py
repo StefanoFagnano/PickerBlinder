@@ -1,13 +1,14 @@
 import sys
 from flask import Flask, Blueprint
 from api.restplus import api
-
+from flask_cors import CORS
 from api.restplus import api
 from api.endpoint.first import ns as first_namespace
 
 from utils import settings
 
 app = Flask(__name__)
+CORS(app)
 
 
 def configure_app(flask_app):
