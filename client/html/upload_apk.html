@@ -20,6 +20,7 @@
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script></script>
 </head>
 <body>
 
@@ -59,14 +60,14 @@
             <div id="loading"></div>
         </div>
 
-        <form action="/" method="POST" enctype="multipart/form-data" id="first-attack">
-            <input type="file" name="apk" id="apk_upload" >
-            <select id="injecotions", name="injecotions">
+        <form action="" method="POST" enctype="multipart/form-data" id="first-attack">
+            <input type="file" name="file" id="file" >
+           <!-- <select id="injecotions" name="injecotions">
                 <option value="0"></option>
                 <option value="1">TEST</option>
                 <option value="2">IMEI</option>
                 <option value="3">PHONE</option>
-            </select>
+            </select> -->
             <button type="submit" onclick="loading();" >Invia</button>
         </form>
         <p id="result"></p>

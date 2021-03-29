@@ -4,7 +4,6 @@ from api.restplus import api
 from flask_cors import CORS
 from api.restplus import api
 from api.endpoint.first import ns as first_namespace
-
 from utils import settings
 
 app = Flask(__name__)
