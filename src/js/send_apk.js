@@ -1,7 +1,7 @@
 $('#first-attack').submit(function (e){
     e.preventDefault();
     const $form = $(this);
-    url = 'http://localhost:5000/api/first/upload';
+    url = 'http://localhost/api/first/upload';
 
 
     var posting = $.post(url, {
