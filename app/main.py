@@ -1,13 +1,21 @@
 import sys
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, session
+from werkzeug.datastructures import FileStorage, CallbackDict
+
+
+
 from api.restplus import api
 from flask_cors import CORS
 from api.restplus import api
 from api.endpoint.first import ns as first_namespace
+from api.endpoint.second import ns as second_namespace
 from utils import settings
 
 app = Flask(__name__)
 CORS(app)
+app.secret_key = 'super secret key'
+
+
 
 
 def configure_app(flask_app):
@@ -21,12 +29,12 @@ def get_api_blueprint():
     blueprint = Blueprint('api', __name__, url_prefix='/api')
     api.init_app(blueprint)
     api.add_namespace(first_namespace)
+    api.add_namespace(second_namespace)
     return blueprint
 
 
 def initialize_app(flask_app):
     configure_app(flask_app)
-
     blueprint = get_api_blueprint()
     flask_app.register_blueprint(blueprint)
 

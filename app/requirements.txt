@@ -8,6 +8,7 @@ itsdangerous==1.1.0
 Jinja2==2.11.2
 jsonschema==3.2.0
 MarkupSafe==1.1.1
+mysql-connector==2.2.9
 pexpect==4.8.0
 ptyprocess==0.6.0
 pyrsistent==0.17.3

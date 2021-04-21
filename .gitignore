@@ -1,2 +1,3 @@
 .idea
 app/venv
+app/javalib/debug.keystore

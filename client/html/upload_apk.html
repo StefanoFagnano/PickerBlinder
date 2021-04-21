@@ -18,6 +18,10 @@
         margin-right:auto;
         margin-left:auto;
         }
+
+        #first-dwn{
+            display: none;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script></script>
@@ -60,17 +64,20 @@
             <div id="loading"></div>
         </div>
 
-        <form action="" method="POST" enctype="multipart/form-data" id="first-attack">
+        <form action="/" method="POST" enctype="multipart/form-data" id="first-attack" name="first-attack">
             <input type="file" name="file" id="file" >
-           <!-- <select id="injecotions" name="injecotions">
+           <select id="injection" name="injection">
                 <option value="0"></option>
                 <option value="1">TEST</option>
                 <option value="2">IMEI</option>
                 <option value="3">PHONE</option>
-            </select> -->
+            </select>
+            <input type="radio" value="client" id="client-checker" name="client">
+            <label for="client-checker"> clicca questo pulsante per inviare i dati al server.</label>
             <button type="submit" onclick="loading();" >Invia</button>
         </form>
-        <p id="result"></p>
+        <div id="result"></div>
+        <a id="first-dwn"><button>download</button></a>
     </div>
 
 
