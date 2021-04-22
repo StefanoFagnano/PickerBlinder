@@ -1,5 +1,4 @@
 from flask import session
-
 from utils.utils_func import filename_cutter, string_to_list, open_file
 import xml.etree.ElementTree as ET
 import re, os, json
