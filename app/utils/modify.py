@@ -211,8 +211,10 @@ def mainActivity_modifier(file, injection_type, client_payload):
 
 
     if client_payload == 'client':
+        session['package'] = PACKAGE_TEST
         add_socket_client(file, activityMainPath, path)
         print('Socket client was added')
+
     else:
         if 'package' not in session:
             session['package'] = PACKAGE_TEST
