@@ -9,6 +9,9 @@ services:
       - 5000:5000
     networks:
       - api-net
+#    volumes:
+#    - './apk_files:/ApkColluding/apk_files/'
+#    - './compiled_apk:/ApkColluding/compiled_apk/'
   client:
     image: nginx:alpine
     container_name: ApkColluding_web

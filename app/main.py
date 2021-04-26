@@ -1,4 +1,4 @@
-import sys
+import sys,os
 from flask import Flask, Blueprint, session
 from werkzeug.datastructures import FileStorage, CallbackDict
 
@@ -37,6 +37,7 @@ def initialize_app(flask_app):
     configure_app(flask_app)
     blueprint = get_api_blueprint()
     flask_app.register_blueprint(blueprint)
+
 
 
 def main():

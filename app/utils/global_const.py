@@ -40,3 +40,6 @@ PACKAGE_LIST = {"init": '\n\n.method public final payload()[Ljava/lang/String;\n
 
 SHARED_NAME = ".saveinfo"
 SEND_SMALI_EX = "$send.smali"
+
+
+PACKAGE_TEST = ['com.slickdroid.calllog', 'org.powerthesaurus.powerthesaurus', 'com.katanagari.damonQuotes']

