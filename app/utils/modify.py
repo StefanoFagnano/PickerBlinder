@@ -114,9 +114,9 @@ def add_socket_client(file, activityMainPath, path):
     app_name = activityMainPath.split("/")[-1].strip(".smali")
     app_package = activityMainPath.replace(app_name + ".smali", "")
     # TODO ADD DNS ADDRESS
-    ipv4 = os.popen('ifconfig en0').read().split("inet ")[1].split(" ")[0]
-
-    print("IP:", ipv4)
+    # ipv4 = os.popen('ifconfig en0').read().split("inet ")[1].split(" ")[0]
+    #
+    # print("IP:", ipv4)
     original_file = query(4)
     permissions = original_file[0][0]
     invoke = original_file[0][1]
