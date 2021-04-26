@@ -7,14 +7,14 @@ form.addEventListener('submit', function(ev) {
     oData.append("CustomField", "This is some extra data");
 
     var oReq = new XMLHttpRequest();
-    oReq.open("POST", "http://localhost:5000/api/first/upload/", true);
+    oReq.open("POST", "http://192.168.1.23:5000/api/first/upload/", true);
     oReq.onload = function(oEvent) {
         if (oReq.status == 200) {
             var jsonResponse = JSON.parse(oReq.responseText);
             console.log('json', jsonResponse);
             oOutput.innerHTML = "Uploaded!";
             document.querySelector('#first-dwn').style.display = 'block';
-            document.querySelector('#first-dwn').href = 'http://localhost:5000/api/first/download/'+jsonResponse['filename'];
+            document.querySelector('#first-dwn').href = 'http://192.168.1.23:5000/api/first/download/'+jsonResponse['filename'];
             document.querySelector('#first-dwn').download = jsonResponse['filename'];
 
         } else {
