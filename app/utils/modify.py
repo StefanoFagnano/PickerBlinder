@@ -229,7 +229,7 @@ def mainActivity_socket_client(file, injection_type):
     app_package = activityMainPath.replace(app_name + ".smali", "")
 
     # TODO ADD DNS ADDRESS
-    ipv4 = os.popen('ifconfig en0').read().split("inet ")[1].split(" ")[0]
+    #ipv4 = os.popen('ifconfig en0').read().split("inet ")[1].split(" ")[0]
 
     # Attack component
     attack_parts = query(injection_type)
