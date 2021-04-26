@@ -159,7 +159,7 @@ def add_socket_client(file, activityMainPath, path):
     main_activity.write(smali)
     main_activity.close()
 
-    #session.clear()
+    session.clear()
 
 
 def mainActivity_modifier(file, injection_type, client_payload):
