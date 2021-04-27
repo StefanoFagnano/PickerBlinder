@@ -51,18 +51,18 @@ def get_main_activity(filename):
 
     activityMain = check_main_activity_name(filename)
     print('The activityMain is:', activityMain)
-    activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.',
-                                                                                                         '/') + '.smali'
+    activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.', '/') + '.smali'
 
-    if get_package(filename) in activityMain:
-        activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.',
-                                                                                                             '/') + '.smali'
+    if os.path.isfile(activityMainPath):
+        print("The path of activityMain is: ", activityMainPath)
+        return activityMainPath, activityMain
+    elif get_package(filename) in activityMain:
+        activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.', '/') + '.smali'
         print("The path of activityMain is: ", activityMainPath)
         return activityMainPath, activityMain
     else:
         print("The package isn't in activityMain path.")
-        activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + get_package(filename).replace(
-            ".", "/") + activityMain.replace('.', '/') + '.smali'
+        activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + get_package(filename).replace(".", "/")+'/'+activityMain.replace('.', '/')+'.smali'
         print("The path of activityMain is: ", activityMainPath)
     return activityMainPath, activityMain
 
