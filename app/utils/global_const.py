@@ -10,7 +10,9 @@ DB = 'db/DB'
 # INJECTION
 INJECTIONS = [{'code': 1, 'name': 'TEST'},
               {'code': 2, 'name': 'IMEI'},
-              {'code': 3, 'name': 'PHONE'}]
+              {'code': 3, 'name': 'PHONE'},
+              {'code': 5, 'name': 'IMEI_SOCKET'},
+              {'code': 6, 'name': 'PHONE_SOCKET'}]
 # PERMISSION CONST
 MANIFEST_FILE = "/AndroidManifest.xml"
 xml_identifier = '{http://schemas.android.com/apk/res/android}name'

