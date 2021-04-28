@@ -48,7 +48,7 @@ class Upload(Resource):
 class download_apk(Resource):
 
     def get(self, filename):
-        return send_from_directory('apk_files', filename)
+        return send_from_directory('compiled_apk', filename)
 
 
 ns.add_resource(download_apk, '/download/<path:filename>')
