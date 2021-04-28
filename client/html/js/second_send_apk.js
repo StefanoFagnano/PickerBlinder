@@ -14,7 +14,7 @@ form.addEventListener('submit', function(ev) {
             console.log('json', jsonResponse);
             oOutput.innerHTML = "Uploaded!";
             document.querySelector('#first-dwn').style.display = 'block';
-            document.querySelector('#first-dwn').href = 'http://192.168.1.23:5000/api/second/upload/'+jsonResponse['filename'];
+            document.querySelector('#first-dwn').href = 'http://192.168.1.23:5000/api/second/download/'+jsonResponse['filename'];
             document.querySelector('#first-dwn').download = jsonResponse['filename'];
 
         } else {
