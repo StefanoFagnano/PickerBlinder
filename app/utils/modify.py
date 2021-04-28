@@ -1,6 +1,6 @@
 import pickle
 
-from flask import session
+from flask import session, abort
 from bs4 import BeautifulSoup as bs
 from utils.utils_func import filename_cutter, string_to_list, open_file
 import xml.etree.ElementTree as ET
@@ -49,22 +49,27 @@ def get_main_activity(filename):
     for activity in root.iter('activity'):
         activities.append(activity.attrib)
 
-    activityMain = check_main_activity_name(filename)
-    print('The activityMain is:', activityMain)
-    activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.', '/') + '.smali'
-
-    if os.path.isfile(activityMainPath):
-        print("The path of activityMain is: ", activityMainPath)
+    try:
+        activityMain = check_main_activity_name(filename)
+        print('The activityMain is:', activityMain)
+        activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.',                                                                                                     '/') + '.smali'
+        if os.path.isfile(activityMainPath):
+            print("The path of activityMain is: ", activityMainPath)
+            return activityMainPath, activityMain
+        elif get_package(filename) in activityMain:
+            activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.',
+                                                                                                                 '/') + '.smali'
+            print("The path of activityMain is: ", activityMainPath)
+            return activityMainPath, activityMain
+        else:
+            print("The package isn't in activityMain path.")
+            activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + get_package(
+                filename).replace(".", "/") + '/' + activityMain.replace('.', '/') + '.smali'
+            print("The path of activityMain is: ", activityMainPath)
         return activityMainPath, activityMain
-    elif get_package(filename) in activityMain:
-        activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + activityMain.replace('.', '/') + '.smali'
-        print("The path of activityMain is: ", activityMainPath)
-        return activityMainPath, activityMain
-    else:
-        print("The package isn't in activityMain path.")
-        activityMainPath = r'decompiled_apk/' + filename_cutter(filename) + "/smali/" + get_package(filename).replace(".", "/")+'/'+activityMain.replace('.', '/')+'.smali'
-        print("The path of activityMain is: ", activityMainPath)
-    return activityMainPath, activityMain
+    except:
+        print("The tool can't detect mainActivity")
+        abort(400, 'missed activityMain')
 
 
 def permission_is_present(permission_to_check, application_permissions):
