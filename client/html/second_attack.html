@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Upload Write APK and Read APK</title>
+    <style>
+        div#loading {
+        width: 35px;
+        height: 35px;
+        display: none;
+        background: url(/static/loader.gif)  no-repeat;
+        cursor: wait;
+        }
+        .spiner-container{
+        display:block;
+        margin-right:auto;
+        margin-left:auto;
+        }
+
+        #first-dwn{
+            display: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script></script>
+</head>
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function loading(){
+            $("#loading").show();
+            $("#content").hide();
+        }
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+         <a class="navbar-brand" href="/">ColludingPORTAL</a>
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNav">
+             <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/upload_apk">Modify APK</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="/second_attack"> Second Attack </a>
+                </li>
+            </ul>
+         </div>
+    </nav>
+
+    <h1 style="margin-left:10px">Inserisci un APK per la scrittura dei dati. </h1>
+    <br>
+    <div style="margin-left:10px">
+
+        <div class="spiner-container">
+            <div id="loading"></div>
+        </div>
+
+        <form action="/" method="POST" enctype="multipart/form-data" id="first-attack" name="first-attack">
+            <input type="file" name="file" id="file" >
+           <select id="injection" name="injection">
+                <option value="0"></option>
+                <option value="5">IMEI</option>
+                <option value="6">PHONE</option>
+            </select>
+            <input type="radio" value="client" id="client-checker" name="client">
+            <label for="client-checker"> clicca questo pulsante per inviare i dati al server.</label>
+            <button type="submit" id="sub-btn" onclick="loading();" >Invia</button>
+        </form>
+        <a id="first-dwn"><button>downlowad</button></a>
+        <div id="result"></div>
+    </div>
+
+
+
+   <br>
+    <h1 style="margin-left:10px">Inserisci un APK per la lettura dei dati. </h1>
+  <div id="second_form" style="margin-left:10px">
+        <form action="/create_read_apk" method="POST" enctype="multipart/form-data" >
+            <input type="file" name="second_apk" id="apk_read_uploader" >
+            <select id="other_injecotions", name="other_injecotions">
+                <option value="0"></option>
+                <option value="1">TEST</option>
+                <option value="2">IMEI</option>
+                <option value="3">PHONE</option>
+            </select>
+            <button type="submit" id="sub-btn-2">Invia</button>
+            <br>
+            <label>Info attacco:</label>
+            <label id= label1></label>
+        </form>
+  </div>
+</body>
+<script src="js/second_send_apk.js"></script>
+
+</html>
