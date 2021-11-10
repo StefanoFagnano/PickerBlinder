@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Upload Write APK and Read APK</title>
+    <style>
+        div#loading {
+        width: 35px;
+        height: 35px;
+        display: none;
+        background: url(/static/loader.gif)  no-repeat;
+        cursor: wait;
+        }
+        .spiner-container{
+        display:block;
+        margin-right:auto;
+        margin-left:auto;
+        }
+
+        #first-dwn{
+            display: none;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script></script>
+</head>
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        function loading(){
+            $("#loading").show();
+            $("#content").hide();
+        }
+    </script>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <img style="width: 3%" src="imgs/logo.png">
+         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <div class="collapse navbar-collapse" id="navbarNav">
+             <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sp_attack">Shared Preferences Attack</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="/sock_attack">Socket Attack</a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="/credtis">Credits</a>
+                </li>
+            </ul>
+         </div>
+    </nav>
+
+    <div>
+        <h1 style="text-align: center">Shared Preferences Attack</h1>
+    </div>
+
+    <div>
+        <button id="add_apps" style="display: block;
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        background-color: #047bf9; border: none;  padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+
+        font-size: 18px;">Add more apps</button>
+    </div>
+
+
+    <br>
+    <div style=" display: flex; justify-content: center">
+        <div class="card" style=" margin-right: 3em">
+            <div class="card-body">
+                <form action="/" method="POST" enctype="multipart/form-data" id="first-attack" name="first-attack"  style="display: flex; flex-direction: column">
+                    <label>Chosen an application</label>
+                    <input type="file" name="file" id="file" >
+                    <label style="margin-top:0.5rem">Chosen an attack</label>
+                   <select id="injection" name="injection">
+                        <option value="0"></option>
+                        <option value="1">TEST</option>
+                        <option value="2">IMEI</option>
+                        <option value="3">PHONE</option>
+                    </select>
+                    <button type="submit" id="sub-btn" style="margin-top:2.05rem">Send</button>
+                </form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form action="/" method="POST" enctype="multipart/form-data" id="first-attack" name="first-attack" style="display: flex; flex-direction: column">
+                    <label>Chosen an application</label>
+                    <input type="file" name="file" id="file" >
+                    <label style="margin-top: 0.5rem">Chosen an attack</label>
+                   <select id="injection" name="injection">
+                        <option value="0"></option>
+                        <option value="1">TEST</option>
+                        <option value="2">IMEI</option>
+                        <option value="3">PHONE</option>
+                    </select>
+                    <div style="display: flex; flex-direction: row; margin-top: 0.05rem" >
+                        <input type="radio" value="client" id="client-checker" name="client" style="margin-top: 0.3em; margin-right: 0.3em">
+                        <label for="client-checker"> Add client request to send info</label>
+                    </div>
+                    <button type="submit" id="sub-btn" onclick="loading();" >Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div style="position: relative;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    color: #333;
+    border-bottom: 2px solid;">
+      <span style=" position: relative;
+    top: 26px;
+    padding: 0 25px;
+    background: #fff;">
+        Download<!--Padding is optional-->
+      </span>
+    </div>
+
+    <div style="display: flex; flex-direction: row; justify-content: center; margin-top: 6em; margin-bottom: 3em;">
+        <a style="margin-right: 20em;"><button style="background-color: #047bf9; border: none;  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;">Download</button></a>
+        <div id="result"></div>
+        <a><button style=" background-color: #047bf9; border: none;  padding: 15px 32px;
+                   text-align: center;
+                   text-decoration: none;
+                   display: inline-block;
+                   font-size: 18px;">Downlowad</button></a>
+        <div id="result"></div>
+    </div>
+
+
+    <div style="position: relative;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    color: #333;
+    border-bottom: 2px solid;">
+      <span style=" position: relative;
+    top: 26px;
+    padding: 0 25px;
+    background: #fff;">
+        Result<!--Padding is optional-->
+      </span>
+    </div>
+    <div style="margin-top: 6em">
+        <ul>
+            <li> Device Info: G7-L01G7-L01</li>
+            <li> IMEI: 869597020114133</li>
+            <li> Phone Number: +393278349902</li>
+        </ul>
+    </div>
+
+</body>
+<footer class="bg-light text-center text-lg-start">
+    <!-- Grid container -->
+    <div class="container p-4">
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase">Links</h5>
+
+                <ul class="list-unstyled mb-0">
+                    <li>
+                        <a href="/index.html" class="text-dark">Home</a>
+                    </li>
+                    <li>
+                        <a href="sp_attack.html" class="text-dark">Shard Preference Attack</a>
+                    </li>
+                    <li>
+                        <a href="sock_attack.html" class="text-dark">Socket Attack</a>
+                    </li>
+                    <li>
+                        <a href="credtis.html" class="text-dark">Credits</a>
+                    </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                <h5 class="text-uppercase mb-0">Links</h5>
+
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="#!" class="text-dark">GitLab</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-dark">SteaelErgon</a>
+                    </li>
+                    <li>
+                        <a href="#!" class="text-dark">2Faces</a>
+                    </li>
+                </ul>
+            </div>
+            <!--Grid column-->
+        </div>
+        <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    </div>
+    <!-- Copyright -->
+</footer>
+<script src="js/send_apk.js"></script>
+</html>
