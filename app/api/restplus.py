@@ -3,8 +3,7 @@ from flask_restplus import Resource, Api
 
 from utils import settings
 
-api = Api(version="0.1", title="APKcolluding",
-          description="Manage interaction with the SATRA engine")
+api = Api(version="0.1", title="Picker Blinder")
 
 
 @api.errorhandler
